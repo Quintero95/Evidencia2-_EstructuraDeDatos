@@ -6,6 +6,12 @@ from datetime import datetime
 import os
 import csv
 
+def checarFecha(fecha):    
+ dia = fecha[0:2]     
+ mes = fecha[3:5]      
+ anio = fecha[6:10]     
+fechaNuvoFormato = año + "-" + mes + "-" + dia     
+return fechaNuvoFormato 
 
 #en esta parte tenemos el diccionario y lista que utilizamos para almacenar los datos de las ventas 
 Venta = namedtuple('Ventas', ('descripcion', 'cantidadVenta', 'precioVenta', 'fechaVenta'))
@@ -216,6 +222,19 @@ def VentaFecha():
     print("+++++++++++++++++++++++++++++++++++++++++++++")
     for venta, datos in DiccionarioVentas.items():
         print(f'{datos[0]}')
+        
+  fec = input("Fecha: ")        
+fecFormat = checarFecha(fec)    
+print(fecFormat)      SavePoint = 0      
+dataVentas = len(DiccionarioVentas)    
+print(f'\n{"*"*50}')      print(f'Folio,Fecha,Descripción,Cantidad,Total')      
+for venta, datos in DiccionarioVentas.items():         
+    if str(datos[0][3]) == str(fecFormat):             
+        print(f'{venta}, {datos[0][3]}, {datos[0][0]}, {datos[0][1]}, {datos[0][2]}')         
+      else: SavePoint +=1  
+         if SavePoint == dataVentas:  print(f'{"*"*50}')                
+                print(f'\nNINGUNA VENTA ENCONTRADA CON ESA FECHA\n')    
+                print(f'FAVOR DE VERIFICAR QUE: {fecFormat} ESTE CORRECTO')
 
 
 #Aqui se registrara el reporte de las ventas hechas por el usuario
